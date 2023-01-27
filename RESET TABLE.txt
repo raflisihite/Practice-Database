@@ -1,0 +1,8 @@
+drop table pulsa;
+drop table subscription;
+drop table top_up;
+drop table gamecode;
+drop table transaksi;
+drop table member;
+drop table produk;
+drop table customer_service;

@@ -1,0 +1,81 @@
+CREATE TABLE MEMBER
+(
+    id_member   VARCHAR2(30) NOT NULL,
+    nama_user   VARCHAR2(30),
+    no_hp       VARCHAR2(30),
+    email       VARCHAR2(30),
+    validasi    VARCHAR2(30)
+);
+ALTER TABLE MEMBER ADD CONSTRAINT Member_PK PRIMARY KEY (id_member);
+
+CREATE TABLE PRODUK
+(
+    id_produk VARCHAR2(30) NOT NULL,
+    harga     VARCHAR2(30)   
+);
+ALTER TABLE PRODUK ADD CONSTRAINT Produk_PK PRIMARY KEY (id_produk);
+
+CREATE TABLE CUSTOMER_SERVICE
+(
+    id_cs    VARCHAR2(30) NOT NULL,
+    nama_cs  VARCHAR2(30),
+    address  VARCHAR2(30),
+    salary   VARCHAR2(30)
+);
+ALTER TABLE CUSTOMER_SERVICE ADD CONSTRAINT Customer_Service_PK PRIMARY KEY (id_cs);
+
+CREATE TABLE TRANSAKSI 
+(
+    id_transaksi VARCHAR2(30) NOT NULL,
+    id_member    VARCHAR2(30) NOT NULL,
+    id_produk    VARCHAR2(30) NOT NULL,
+    id_cs        VARCHAR2(30) NOT NULL,
+    tgl_beli     DATE,
+    status       VARCHAR2(30)
+    
+);
+ALTER TABLE TRANSAKSI ADD CONSTRAINT Transaksi_PK PRIMARY KEY (id_transaksi);
+
+CREATE TABLE PULSA
+(
+    id_produk VARCHAR2(30) NOT NULL,
+    provider  VARCHAR2(30),
+    nominal   VARCHAR2(30)
+);
+ALTER TABLE PULSA ADD CONSTRAINT Pulsa_PK PRIMARY KEY (id_produk);
+
+CREATE TABLE SUBSCRIPTION
+(
+    id_produk   VARCHAR2(30) NOT NULL,
+    durasi      VARCHAR2(30),
+    kategorisub VARCHAR2(30)
+);
+ALTER TABLE SUBSCRIPTION ADD CONSTRAINT Subscription_PK PRIMARY KEY (id_produk);
+
+CREATE TABLE TOP_UP 
+(
+    id_produk       VARCHAR2(30) NOT NULL,
+    nama            VARCHAR2(30), 
+    kategoritop_up  VARCHAR2(30)
+);
+ALTER TABLE TOP_UP ADD CONSTRAINT Top_up_PK PRIMARY KEY (id_produk);
+
+CREATE TABLE GAMECODE
+(
+    id_produk   VARCHAR2(30) NOT NULL,
+    judul       VARCHAR2(30)
+);
+ALTER TABLE GAMECODE ADD CONSTRAINT Gamecode_PK PRIMARY KEY (id_produk);
+
+
+ALTER TABLE TRANSAKSI ADD CONSTRAINT Transaksi_Member_FK FOREIGN KEY ( id_member ) REFERENCES MEMBER ( id_member ) ;
+ALTER TABLE TRANSAKSI ADD CONSTRAINT Transaksi_Produk_FK FOREIGN KEY ( id_produk ) REFERENCES PRODUK ( id_produk ) ;
+ALTER TABLE TRANSAKSI ADD CONSTRAINT Transaksi_Customer_Service_FK FOREIGN KEY ( id_cs ) REFERENCES CUSTOMER_SERVICE ( id_cs ) ;
+
+ALTER TABLE PULSA ADD CONSTRAINT Pulsa_Produk_FK FOREIGN KEY ( id_produk ) REFERENCES PRODUK ( id_produk ) ;
+
+ALTER TABLE TOP_UP ADD CONSTRAINT Top_Up_Produk_FK FOREIGN KEY ( id_produk ) REFERENCES PRODUK ( id_produk ) ;
+
+ALTER TABLE SUBSCRIPTION ADD CONSTRAINT Subscription_Produk_FK FOREIGN KEY ( id_produk ) REFERENCES PRODUK ( id_produk ) ;
+
+ALTER TABLE GAMECODE ADD CONSTRAINT Gamecode_Produk_FK FOREIGN KEY ( id_produk ) REFERENCES PRODUK ( id_produk ) ;
